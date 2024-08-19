@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expression Calculator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #0e0d0d;
+        }
+        .calculator {
+            width: 300px;
+            background-color: #447eca;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .display {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 20px;
+            background-color: #447eca;
+            color: #181717;
+            font-size: 24px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            padding: 10px;
+        }
+        button {
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 18px;
+            background-color: #5c639e;
+            color: #fafbff;
+            padding: 20px;
+        }
+        /* Operator button styles */
+        button.operator {
+            background-color: #5c639e; 
+        }
+        button.equal {
+            background-color: #5c639e; 
+        }
+        button.clear {
+            background-color: #5c639e; 
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+    <div class="display" id="display"></div>
+    <div class="buttons">
+        <button onclick="appendCharacter('7')">7</button>
+        <button onclick="appendCharacter('8')">8</button>
+        <button onclick="appendCharacter('9')">9</button>
+        <button onclick="appendCharacter('/')" style="background-color: #5c639e;">/</button>
+        <button onclick="appendCharacter('4')">4</button>
+        <button onclick="appendCharacter('5')">5</button>
+        <button onclick="appendCharacter('6')">6</button>
+        <button onclick="appendCharacter('*')" style="background-color: #5c639e;">*</button>
+        <button onclick="appendCharacter('1')">1</button>
+        <button onclick="appendCharacter('2')">2</button>
+        <button onclick="appendCharacter('3')">3</button>
+        <button onclick="appendCharacter('-')" style="background-color: #5c639e;">-</button>
+        <button onclick="appendCharacter('0')">0</button>
+        <button onclick="appendCharacter('.')">.</button>
+        <button class="equal" onclick="calculate()" style="background-color: #5c639e;">=</button>
+        <button class="operator" onclick="appendCharacter('+')" style="background-color: #5c639e;">+</button>
+        <!-- New buttons for current month, date, and year -->
+        <button onclick="displayCurrentMonth()">Month</button>
+        <button onclick="displayCurrentDate()">Date</button>
+        <button onclick="displayCurrentYear()">Year</button>
+    </div>
+    <div class="buttons">
+        <button class="clear" onclick="clearCharacter()">AC</button>
+        <button onclick="deleteCharacter()">DEL</button>
+    </div>
+
+
+    <script>
+    function displayCurrentMonth() {
+    const display = document.getElementById('display');
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1; // Adding 1 to get the month number (January is 0)
+    display.textContent += currentMonth;
+}
+
+
+function displayCurrentDate() {
+    const display = document.getElementById('display');
+    const currentDate = new Date();
+    display.textContent += currentDate.getDate();
+}
+
+function displayCurrentYear() {
+    const display = document.getElementById('display');
+    const currentDate = new Date();
+    display.textContent += currentDate.getFullYear();
+}
+</script>
+    <script>
+        function appendCharacter(character) {
+            const display = document.getElementById('display');
+            display.textContent += character;
+        }
+
+        function clearCharacter() {
+            const display = document.getElementById('display');
+            display.textContent = '';
+        }
+
+        function deleteCharacter() {
+            const display = document.getElementById('display');
+            display.textContent = display.textContent.slice(0, -1);
+        }
+
+        function calculate() {
+            const display = document.getElementById('display');
+            const expression = display.textContent;
+            const result = eval(expression);
+            display.textContent = result;
+        }
+    </script>
+</body>
+</html>
